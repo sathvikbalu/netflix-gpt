@@ -16,6 +16,10 @@ If you are developing a production application, we recommend using TypeScript wi
     
     -Created a react application using vite
     -Configured TailwindCSS
+    -Header
+    -Login Form
+    -Signup Form
+
 
 # Features
     -Login/Signup Page
