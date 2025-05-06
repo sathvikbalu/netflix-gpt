@@ -1,10 +1,90 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Header from "./Header";
+import checkValidData from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const navigate = useNavigate();
   const [isSignIn, setIsSignIn] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch();
+
+  const email = useRef(null);
+  const password = useRef(null);
+  const name = useRef(null);
+
   const toggleSignUp = () => {
     setIsSignIn(!isSignIn);
+  };
+  const handleButtonClick = () => {
+    const message = checkValidData(email.current.value, password.current.value);
+    setErrorMessage(message);
+    if (message) {
+      return;
+    }
+    if (!isSignIn) {
+      //Sign Up logic
+      // const auth = getAuth();
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL:
+              "https://upload.wikimedia.org/wikipedia/commons/d/d5/MS_Dhoni_%28Prabhav_%2723_-_RiGI_2023%29.jpg",
+          })
+            .then(() => {
+              // Profile updated!
+             // ...
+             const {uid,email,displayName,photoURL} = auth.currentUser;
+              dispatch(addUser({uid,email,displayName,photoURL}))
+              navigate("/");
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+            });
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    } else {
+      //Sign In Logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // ...
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }
   };
 
   return (
@@ -17,28 +97,38 @@ const Login = () => {
         />
       </div>
       <div>
-        <form className="absolute p-12  text-white w-3/12 my-36 mx-auto right-0 left-0 rounded-lg bg-black/80">
+        <form
+          onSubmit={(e) => e.preventDefault()}
+          className="absolute p-12  text-white w-3/12 my-36 mx-auto right-0 left-0 rounded-lg bg-black/80"
+        >
           <h1 className="font-bold text-2xl py-4">
             {isSignIn ? "Sign In" : "Sign Up"}
           </h1>
-          {isSignIn && (
+          {!isSignIn && (
             <input
+              ref={name}
               type="text"
               placeholder="Full Name"
               className="p-2 my-4 w-full bg-gray-900"
             />
           )}
           <input
+            ref={email}
             type="text"
             placeholder="Email Address"
             className="p-2 my-4 w-full bg-gray-900"
           />
           <input
+            ref={password}
             type="password"
             placeholder="Password"
             className="p-2 my-4 w-full bg-gray-900"
           />
-          <button className="p-2 my-6 bg-red-700 w-full rounded-lg">
+          <p className="text-red-500 font-bold text-lg">{errorMessage}</p>
+          <button
+            className="p-2 my-6 bg-red-700 w-full rounded-lg"
+            onClick={handleButtonClick}
+          >
             {isSignIn ? "Sign In" : "Sign Up"}
           </button>
           <p className="cursor-pointer" onClick={toggleSignUp}>

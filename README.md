@@ -17,8 +17,19 @@ If you are developing a production application, we recommend using TypeScript wi
     -Created a react application using vite
     -Configured TailwindCSS
     -Header
+    -Routing
     -Login Form
     -Signup Form
+    -Form Validation
+    -useRef Hook
+    -Firebase setup
+    -Deploying our app to production
+    -Create a signup user account in firebase
+    -Implement sign in user api
+    -Created Redux store with userSlice
+    -Implement Sign Out
+    -Update Profile
+    
 
 
 # Features
