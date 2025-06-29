@@ -40,6 +40,12 @@ If you are developing a production application, we recommend using TypeScript wi
     -Update store with trailer data
     -Embedded the youtube video and make it autoplay and mute
     -Tailwind classes to make main container look awesome
+    -Build Secondary component
+    -Build MovieList
+    -Build Moviecard
+    -TMDB Image cdn url
+    -Made the browse page using Tailwind CSS
+    -usePopularMovies, useToprated, useUpcoming custom hooks
 
     
 
