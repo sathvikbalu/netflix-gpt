@@ -1,0 +1,10 @@
+export const LOGO="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production/consent/87b6a5c0-0104-4e96-a291-092c11350111/01938dc4-59b3-7bbc-b635-c4131030e85f/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+export const USER_PIC="https://upload.wikimedia.org/wikipedia/commons/d/d5/MS_Dhoni_%28Prabhav_%2723_-_RiGI_2023%29.jpg"
+export const API_OPTIONS={
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiODg0NTRkNDNhZTFhNjRkMTRjNTExNTQwODA0NDZjOCIsIm5iZiI6MTc1MTA5NjY4Ny44MzcsInN1YiI6IjY4NWY5ZDZmMmRkOWNmYWUxNGRkMGUyNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.NKFEGcx1_B1SAvKJgSIETIJSEH04L8k0AnLozf8XS-k'
+  }
+};
+export const API_MOVIES_URL='https://api.themoviedb.org/3/movie/changes?page=1';

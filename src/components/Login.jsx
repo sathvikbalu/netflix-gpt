@@ -9,11 +9,12 @@ import {
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { useNavigate } from "react-router-dom";
+import { USER_PIC } from "../utils/constants";
+
 
 const Login = () => {
 
-  const navigate = useNavigate();
+
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
@@ -44,15 +45,13 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-            photoURL:
-              "https://upload.wikimedia.org/wikipedia/commons/d/d5/MS_Dhoni_%28Prabhav_%2723_-_RiGI_2023%29.jpg",
+            photoURL:USER_PIC,
           })
             .then(() => {
               // Profile updated!
              // ...
              const {uid,email,displayName,photoURL} = auth.currentUser;
               dispatch(addUser({uid,email,displayName,photoURL}))
-              navigate("/");
             })
             .catch((error) => {
               // An error occurred
@@ -77,7 +76,7 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           // ...
-          navigate("/browse");
+   
         })
         .catch((error) => {
           const errorCode = error.code;
