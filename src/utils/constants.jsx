@@ -15,3 +15,4 @@ export const SUPPORTED_LANGUAGES = [
   { code: 'hi', name: 'Hindi' },
   { code: 'te', name: 'Telugu' },
   { code: 'es', name: 'Spanish' }]
+
